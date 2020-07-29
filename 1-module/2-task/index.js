@@ -11,6 +11,13 @@ function print(text) {
  */
 function isValid(name) {
   // ваш код...
+  name = String(name);
+  const name_length_limit = 4; // in symbols
+
+  if(!name || name.length < name_length_limit || name.includes(' ')) {
+    return false;
+  }
+  return true;
 }
 
 function sayHello() {

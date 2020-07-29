@@ -4,5 +4,17 @@
  * @returns {number}
  */
 function factorial(n) {
-  // ваш код...
+    let number = Number(n);
+
+    if(number <= 1) {
+        return 1;
+    }
+
+    let result = number;
+
+    while(number > 1) {
+        result *= --number;
+    }
+
+    return result;
 }
