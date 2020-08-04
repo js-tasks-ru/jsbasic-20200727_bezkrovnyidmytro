@@ -4,11 +4,11 @@
  * @returns {Boolean}
  */
 function isEmpty(obj) {
-    let isEmpty = true;
-
     for(let prop in obj) {
-        isEmpty = !(typeof (obj[prop]) !== undefined && obj[prop]);
+        if(obj.hasOwnProperty(prop)) {
+            return false;
+        }
     }
 
-    return isEmpty;
+    return true;
 }
