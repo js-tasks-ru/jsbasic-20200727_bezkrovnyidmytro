@@ -11,9 +11,7 @@ function sumSalary(salaries) {
   }
 
   for (let key in salaries) {
-    let keyType = typeof (key);
-      
-    if (Number.isInteger(keyType)) {
+    if (Number.isInteger(salaries[key])) {
       totalSalary += salaries[key];
     }
   }
