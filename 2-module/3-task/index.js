@@ -1,10 +1,7 @@
 let calculator = {
   a: 0,
   b: 0,
-  read: function() {
-    let a = prompt('Please enter first number (integer): ');
-    let b = prompt('Please enter second number (integer): ');
-
+  read: function(a, b) {
     this.a = Number(a);
     this.b = Number(b);
 
