@@ -67,55 +67,54 @@ export default class Carousel {
     `;
   }
 
+  hideArrows(index) {
+    if (index === this.slides.length) {
+      this.nextBtn.style.display = 'none';
+    } else {
+      this.nextBtn.style.display = '';
+    }
+
+    if (index === 1) {
+      this.prevBtn.style.display = 'none';
+    } else {
+      this.prevBtn.style.display = '';
+    }
+  }
+
+  getElementOffsetWidth(element) {
+    let OffsetWidth = Number(element.offsetWidth);
+    let PrevOffsetWidth = Number(element.style.transform.replace(/[^-?\d+]/g, ''));
+
+    return {OffsetWidth, PrevOffsetWidth};
+  }
+
+  slideOnClick(op) {
+    let carouselInner = this.elem.querySelector('.carousel__inner');
+    let offsets = this.getElementOffsetWidth(carouselInner);
+
+    let transformValue = op(offsets.PrevOffsetWidth, offsets.OffsetWidth);
+    carouselInner.style.transform = `translateX(${transformValue}px)`;
+  }
+
   initCarousel() {
-    let nextBtn = this.elem.querySelector('.carousel__arrow_right');
-    let prevBtn = this.elem.querySelector('.carousel__arrow_left');
-  
-    const numberSlides = this.elem.querySelectorAll('.carousel__slide').length;
+    this.nextBtn = this.elem.querySelector('.carousel__arrow_right');
+    this.prevBtn = this.elem.querySelector('.carousel__arrow_left');
+
     let currentSliderPosition = 1;
   
     let sum = (a, b) => a + b;
     let diff = (a, b) => a - b;
+
+    this.hideArrows(currentSliderPosition);
   
-    let getElementOffsetWidth = (element) => {
-      let OffsetWidth = Number(element.offsetWidth);
-      let PrevOffsetWidth = Number(element.style.transform.replace(/[^-?\d+]/g, ''));
-  
-      return {OffsetWidth, PrevOffsetWidth};
-    };
-  
-    let slideOnClick = (op) => {
-      let carouselInner = this.elem.querySelector('.carousel__inner');
-      let offsets = getElementOffsetWidth(carouselInner);
-  
-      let transformValue = op(offsets.PrevOffsetWidth, offsets.OffsetWidth);
-      carouselInner.style.transform = `translateX(${transformValue}px)`;  
-    };
-  
-    let hideArrows = (index) => {
-      if (index === numberSlides) {
-        nextBtn.style.display = 'none';
-      } else {
-        nextBtn.style.display = '';
-      }
-  
-      if (index === 1) {
-        prevBtn.style.display = 'none';
-      } else {
-        prevBtn.style.display = '';
-      }
-    };
-  
-    hideArrows(currentSliderPosition);
-  
-    nextBtn.addEventListener('click', (eventClick) => { 
-      slideOnClick(diff);
-      hideArrows(++currentSliderPosition);
+    this.nextBtn.addEventListener('click', () => {
+      this.slideOnClick(diff);
+      this.hideArrows(++currentSliderPosition);
     });
   
-    prevBtn.addEventListener('click', (eventClick) => {
-      slideOnClick(sum);
-      hideArrows(--currentSliderPosition);
+    this.prevBtn.addEventListener('click', () => {
+      this.slideOnClick(sum);
+      this.hideArrows(--currentSliderPosition);
     });
   }
 }
