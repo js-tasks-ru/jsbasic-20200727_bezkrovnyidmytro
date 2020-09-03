@@ -28,16 +28,13 @@ export default class ProductCard {
   }
 
   addClickEvents() {
-    let cardButtons = this.elem.querySelectorAll('.card__button');
-    Array.from(cardButtons).map(cardButton => {
-      cardButton.addEventListener('click', eventClick => {
-        let addToCartEvent = new CustomEvent("product-add", { 
-          detail: this.id, 
-          bubbles: true 
-        });
-
-        this.elem.dispatchEvent(addToCartEvent);
+    this.elem.querySelector('.card__button').addEventListener('click', eventClick => {
+      let addToCartEvent = new CustomEvent("product-add", { 
+        detail: this.id, 
+        bubbles: true 
       });
+
+      this.elem.dispatchEvent(addToCartEvent);
     });
   }
 
